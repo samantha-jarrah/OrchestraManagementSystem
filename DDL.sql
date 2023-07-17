@@ -1,3 +1,6 @@
+-- Group 70: The Wild Thornberry's
+-- Jared Norris and Samantha Jarrah
+
 -- Create Programs Table, no FK
 CREATE TABLE IF NOT EXISTS Programs (
 	programID int auto_increment,
@@ -16,7 +19,7 @@ CREATE TABLE IF NOT EXISTS SheetMusic (
     PRIMARY KEY (sheetMusicID)
     );
 
--- Create intersection table for Programs and SheetMusic
+-- Create intersection table for Programs and SheetMusic, programID and sheetMusicID both FK
 CREATE TABLE IF NOT EXISTS SheetMusicOnPrograms (
 	musicProgramID int auto_increment,
     programID int NOT NULL,
@@ -25,16 +28,17 @@ CREATE TABLE IF NOT EXISTS SheetMusicOnPrograms (
     FOREIGN KEY (programID) REFERENCES Programs(programID),
     FOREIGN KEY (sheetMusicID) REFERENCES SheetMusic(sheetMusicID)
     );
-    
+-- Create Musicians table, no FK    
 CREATE TABLE IF NOT EXISTS Musicians (
 musicianID int auto_increment,
 musicanName VARCHAR(145) NOT NULL,
 musicianPhone VARCHAR(14),
 musicianEmail VARCHAR(145),
-instrument VARCHAR(145) NOT NuLL,
+instrument VARCHAR(145) NOT NULL,
 PRIMARY KEY (musicianID)
 );
 
+-- Create Venues table, no FK
 CREATE TABLE IF NOT EXISTS Venues (
 venueID int auto_increment,
 venueName VARCHAR(145) NOT NULL,
@@ -44,6 +48,7 @@ performanceID INT,
 PRIMARY KEY (venueID)
 );
 
+-- Create Performances table, venueID and programID both FK
 CREATE TABLE IF NOT EXISTS Performances (
 performanceID int auto_increment,
 performanceName VARCHAR(145) NOT NULL,
@@ -56,8 +61,7 @@ FOREIGN KEY (venueID) REFERENCES Venues(venueID),
 FOREIGN KEY (programID) REFERENCES Programs(programID)
 );
 
-
-
+-- Create intersection table for MusiciansPerformances, musicianID and performanceID both FK
 CREATE TABLE IF NOT EXISTS MusiciansPerformances(
 musiciansPerformancesID int auto_increment,
 musicianID int NOT NULL,
@@ -68,18 +72,19 @@ FOREIGN KEY (performanceID) REFERENCES Performances(performanceID)
 );
 
 
-
-
+-- Insert Musician Rows
 INSERT INTO Musicians (musicanName, musicianPhone, musicianEmail, instrument)
 VALUES ('Barry Allen', '(679) 834-9081', 'theflash@hotmail.com', 'oboe'),
  ('Tony Stark', '(875) 435-9821', 'ironman@yahoo.com', 'violin'),
  ('Bruce Banner', '(653) 982-7651', 'incrediblehulk@aol.com', 'tuba');
 
+-- Insert Performance Rows
  INSERT INTO Performances (performanceName, venueID, performanceDate, programID)
  VALUES ('Trans Siberia Orchestra', 1, '2023-12-13', 1),
  ('The Nut Cracker', 1, '2023-12-24', 7),
  ("Beethoven's Fifth Symphony", 2 , '2024-1-17', 3);
 
+-- Insert Venue Rows
  INSERT INTO Venues (venueName, cityState, capacity, performanceID)
  VALUES ('The Fimore Auditorium', 'Denver, CO', 637, 1),
  ('The Historic El Rey', 'Albuquerque, NM', 154, 2),
@@ -130,7 +135,7 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
       ("ACDC Revival", "Rock"),
       ("Modern Asian-American Composers", "Modern");
     
-    -- Intersection Table for SheetMusicOnPrograms
+-- Intersection Table for SheetMusicOnPrograms
 	INSERT INTO SheetMusicOnPrograms (programID, sheetMusicID)
 		VALUES
 			(1, 7),
@@ -149,6 +154,7 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
             (9, 5),
             (10, 9);
             
+  -- Insert intersection table data for musicians and performances          
 	INSERT INTO MusiciansPerformances (musicianID, performanceID)
 		VALUES
 			(1, 1),
