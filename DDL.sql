@@ -1,6 +1,9 @@
 -- Group 70: The Wild Thornberry's
 -- Jared Norris and Samantha Jarrah
 
+SET FOREIGN_KEY_CHECKS=0;
+SET AUTOCOMMIT = 0;
+
 -- Create Programs Table, no FK
 CREATE TABLE IF NOT EXISTS Programs (
 	programID int auto_increment,
@@ -25,13 +28,14 @@ CREATE TABLE IF NOT EXISTS SheetMusicOnPrograms (
     programID int NOT NULL,
     sheetMusicID int NOT NULL,
     PRIMARY KEY (musicProgramID),
-    FOREIGN KEY (programID) REFERENCES Programs(programID),
-    FOREIGN KEY (sheetMusicID) REFERENCES SheetMusic(sheetMusicID)
+    FOREIGN KEY (programID) REFERENCES Programs(programID) ON DELETE CASCADE,
+    FOREIGN KEY (sheetMusicID) REFERENCES SheetMusic(sheetMusicID) ON DELETE CASCADE
     );
+    
 -- Create Musicians table, no FK    
 CREATE TABLE IF NOT EXISTS Musicians (
 musicianID int auto_increment,
-musicanName VARCHAR(145) NOT NULL,
+musicianName VARCHAR(145) NOT NULL,
 musicianPhone VARCHAR(14),
 musicianEmail VARCHAR(145),
 instrument VARCHAR(145) NOT NULL,
@@ -57,8 +61,8 @@ performanceDate DATE NOT NULL,
 programID int,
 musicianID int,
 PRIMARY KEY (performanceID),
-FOREIGN KEY (venueID) REFERENCES Venues(venueID),
-FOREIGN KEY (programID) REFERENCES Programs(programID)
+FOREIGN KEY (venueID) REFERENCES Venues(venueID) ON DELETE CASCADE,
+FOREIGN KEY (programID) REFERENCES Programs(programID) ON DELETE SET NULL
 );
 
 -- Create intersection table for MusiciansPerformances, musicianID and performanceID both FK
@@ -67,13 +71,13 @@ musiciansPerformancesID int auto_increment,
 musicianID int NOT NULL,
 performanceID int NOT NULL,
 PRIMARY KEY (musiciansPerformancesID),
-FOREIGN KEY (musicianID) REFERENCES Musicians(musicianID),
-FOREIGN KEY (performanceID) REFERENCES Performances(performanceID)
+FOREIGN KEY (musicianID) REFERENCES Musicians(musicianID) ON DELETE CASCADE,
+FOREIGN KEY (performanceID) REFERENCES Performances(performanceID) ON DELETE CASCADE
 );
 
 
 -- Insert Musician Rows
-INSERT INTO Musicians (musicanName, musicianPhone, musicianEmail, instrument)
+INSERT INTO Musicians (musicianName, musicianPhone, musicianEmail, instrument)
 VALUES ('Barry Allen', '(679) 834-9081', 'theflash@hotmail.com', 'oboe'),
  ('Tony Stark', '(875) 435-9821', 'ironman@yahoo.com', 'violin'),
  ('Bruce Banner', '(653) 982-7651', 'incrediblehulk@aol.com', 'tuba');
@@ -160,3 +164,6 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
 			(1, 1),
             (1, 2),
             (1, 3);
+
+SET FOREIGN_KEY_CHECKS = 1;
+COMMIT;
