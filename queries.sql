@@ -123,7 +123,7 @@ SELECT Performances.performanceID, Performances.performanceName, Performances.pe
 SELECT musiciansPerformancesID, Musicians.musicianName, Performances.performanceName
 	FROM MusiciansPerformances
     JOIN Musicians ON MusiciansPerformances.musicianID = Musicians.musicianID
-    JOIN Performances ON musiciansPerformances.performanceID = Performances.performanceID;
+    JOIN Performances ON MusiciansPerformances.performanceID = Performances.performanceID;
     
 -- Drop down Selects
 -- programName Select

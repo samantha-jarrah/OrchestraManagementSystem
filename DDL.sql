@@ -48,7 +48,6 @@ venueID int auto_increment,
 venueName VARCHAR(145) NOT NULL,
 cityState VARCHAR(145) NOT NULL,
 capacity INT,
-performanceID INT,
 PRIMARY KEY (venueID)
 );
 
@@ -78,52 +77,57 @@ FOREIGN KEY (performanceID) REFERENCES Performances(performanceID) ON DELETE CAS
 
 -- Insert Musician Rows
 INSERT INTO Musicians (musicianName, musicianPhone, musicianEmail, instrument)
-VALUES ('Barry Allen', '(679) 834-9081', 'theflash@hotmail.com', 'oboe'),
- ('Tony Stark', '(875) 435-9821', 'ironman@yahoo.com', 'violin'),
- ('Bruce Banner', '(653) 982-7651', 'incrediblehulk@aol.com', 'tuba');
+	VALUES 
+	('Bruce Wayne', '(405) 971-9543', 'batman@gmail.com', 'saxophone'),
+	('Barry Allen', '(679) 834-9081', 'theflash@hotmail.com', 'oboe'),
+	('Tony Stark', '(875) 435-9821', 'ironman@yahoo.com', 'violin'),
+	('Bruce Banner', '(653) 982-7651', 'incrediblehulk@aol.com', 'tuba'),
+    ('Jennifer Walters', '(307) 896-5321', 'shehulk@ymail.com', 'flute'),
+    ('Wanda Maximoff', '(405) 340-1257', 'scarletwitch@gmail.com', 'piccolo'),
+    ('Carol Danvers', '(871) 964-3867', 'captainmarvel@yahoo.com', 'harp'),
+    ('Selena Kyle', '(523) 851-9012', 'catwoman@ymail.com', 'trumpet'),
+    ('Oswald Cobblepot','(674) 321-8743', 'thepenguin@aol.com', 'trombone'),
+    ('Arthur Fleck', '(321) 684-0124', 'thejoker@gmail.com', 'bass');
 
 -- Insert Performance Rows
  INSERT INTO Performances (performanceName, venueID, performanceDate, programID)
- VALUES ('Trans Siberia Orchestra', 1, '2023-12-13', 1),
- ('The Nut Cracker', 1, '2023-12-24', 7),
- ("Beethoven's Fifth Symphony", 2 , '2024-1-17', 3);
+ VALUES ('Trans Siberia Orchestra', 1, '2023-12-13', NULL),
+ ('The Nut Cracker', 1, '2023-12-24', 5),
+ ("Beethoven's Fifth Symphony", 2 , '2024-1-17', 1),
+ ("Beethoven's Fifth Symphony", 6 , '2024-1-18', 1),
+ ('Fantastic Women!', 4, '2024-3-2', 3),
+ ("Mahler's First Symphony", 3, '2024-4-18', 2),
+ ('Summer Pops Concert', 5, '2024-6-21', 6),
+ ('Fun for the Family', 8, '2024-6-28', 6),
+ ('An Orchestral Rendition of Nirvana', 7, '2024-6-17', NULL),
+ ('Hallelujah! feat. The Mormon Tabernacle Choir', 10, '2024-12-20', 8);
 
 -- Insert Venue Rows
- INSERT INTO Venues (venueName, cityState, capacity, performanceID)
- VALUES ('The Fimore Auditorium', 'Denver, CO', 637, 1),
- ('The Historic El Rey', 'Albuquerque, NM', 154, 2),
- ('Arlene Scnitzer Hall', 'Portland, OR', 620, 3);
+ INSERT INTO Venues (venueName, cityState, capacity)
+ VALUES ('The Fimore Auditorium', 'Denver, CO', 637),
+ ('The Historic El Rey', 'Albuquerque, NM', 154),
+ ('Arlene Scnitzer Hall', 'Portland, OR', 620),
+ ('Majestic Theater', 'Dallas, TX', 620),
+ ('Terry Concert Hall', 'Jacksonville, FL', 1100),
+ ('Tabernacle', 'Atlanta, GA', 1221),
+ ('The Howard Theater', 'Washington DC', 823),
+ ('Carnegie Hall', 'New York, NY', 780),
+ ('Fremont Abbey Arts Center', 'Seattle, WA', 450),
+ ('Temple Square', 'Salt Lake City, UT', 1666);
     
--- Insert data into SheetMusic table, only some rows have arrangers
+-- Insert data into SheetMusic table
 INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
 	VALUES
-		("Spongebob Squarepants-Theme", "Blaise Smith", "Larry Moore", "Pop");
-        
-INSERT INTO SheetMusic (sheetMusicName, composer, genre)
-	VALUES ("O virtus Sapientiae", "Hildegard of Bingen", "Classical");
-
-INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
-	VALUES
-		("Symphony No. 3 in G Minor, Op. 36", "Louise Farrenc", "Chantal Brooke", "Classical");
-        
-INSERT INTO SheetMusic (sheetMusicName, composer, genre)
-	VALUES 
-		("Imperial March", "John Williams", "Pop"),
-        ("Boulevard of Broken Dreams", "Green Day", "Rock");
-        
-INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
-	VALUES
-		("Under the Sea", "Alan Menken", "Harry Schnel", "Pop");
-
-INSERT INTO SheetMusic (sheetMusicName, composer, genre)
-	VALUES 
-		("Fifth Symphony in C Minor", "Ludwig Van Beethoven", "Classical"),
-        ("The Nutcracker", "Pyotr Ilyich Tchaikovsky", "Holiday"),
-        ("All I Want for Christmas Is You", "Mariah Carey", "Holiday");
-
-INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
-	VALUES
-		("Remember Me", "Germaine Franco", "Germaine Franco", "Pop");
+		("Spongebob Squarepants-Theme", "Blaise Smith", "Larry Moore", "Pop"),
+        ("O virtus Sapientiae", "Hildegard of Bingen", NULL, "Classical"),
+        ("Symphony No. 3 in G Minor, Op. 36", "Louise Farrenc", "Chantal Brooke", "Classical"),
+        ("Imperial March", "John Williams", NULL, "Pop"),
+        ("Boulevard of Broken Dreams", "Green Day", NULL, "Rock"),
+        ("Under the Sea", "Alan Menken", "Harry Schnel", "Pop"),
+        ("Fifth Symphony in C Minor", "Ludwig Van Beethoven", NULL, "Classical"),
+        ("The Nutcracker", "Pyotr Ilyich Tchaikovsky", NULL, "Holiday"),
+        ("All I Want for Christmas Is You", "Mariah Carey", NULL, "Holiday"),
+        ("Remember Me", "Germaine Franco", "Germaine Franco", "Pop");
         
 -- Insert Program data
   INSERT INTO Programs (programName, theme)
@@ -163,7 +167,30 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
 		VALUES
 			(1, 1),
             (1, 2),
-            (1, 3);
+            (1, 3),
+            (1, 4),
+            (2, 10),
+            (2, 8),
+            (2, 7),
+            (2, 6),
+            (4, 9),
+            (4, 10),
+            (4, 4),
+            (6, 2),
+            (6, 4),
+            (6, 7),
+            (7, 8),
+            (7, 10),
+            (7, 1),
+            (8, 9),
+            (8, 6),
+            (8, 3),
+            (9, 1),
+            (9, 9),
+            (9, 4),
+            (10, 10),
+            (10, 3),
+            (10, 6);
 
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
