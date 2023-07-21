@@ -1,3 +1,9 @@
+-- Group 70: The Wild Thornberry's
+-- Jared Norris and Samantha Jarrah
+
+SET FOREIGN_KEY_CHECKS=0;
+SET AUTOCOMMIT = 0;
+
 -- Create Programs Table, no FK
 CREATE TABLE IF NOT EXISTS Programs (
 	programID int auto_increment,
@@ -16,25 +22,27 @@ CREATE TABLE IF NOT EXISTS SheetMusic (
     PRIMARY KEY (sheetMusicID)
     );
 
--- Create intersection table for Programs and SheetMusic
+-- Create intersection table for Programs and SheetMusic, programID and sheetMusicID both FK
 CREATE TABLE IF NOT EXISTS SheetMusicOnPrograms (
 	musicProgramID int auto_increment,
     programID int NOT NULL,
     sheetMusicID int NOT NULL,
     PRIMARY KEY (musicProgramID),
-    FOREIGN KEY (programID) REFERENCES Programs(programID),
-    FOREIGN KEY (sheetMusicID) REFERENCES SheetMusic(sheetMusicID)
+    FOREIGN KEY (programID) REFERENCES Programs(programID) ON DELETE CASCADE,
+    FOREIGN KEY (sheetMusicID) REFERENCES SheetMusic(sheetMusicID) ON DELETE CASCADE
     );
     
+-- Create Musicians table, no FK    
 CREATE TABLE IF NOT EXISTS Musicians (
 musicianID int auto_increment,
-musicanName VARCHAR(145) NOT NULL,
+musicianName VARCHAR(145) NOT NULL,
 musicianPhone VARCHAR(14),
 musicianEmail VARCHAR(145),
-instrument VARCHAR(145) NOT NuLL,
+instrument VARCHAR(145) NOT NULL,
 PRIMARY KEY (musicianID)
 );
 
+-- Create Venues table, no FK
 CREATE TABLE IF NOT EXISTS Venues (
 venueID int auto_increment,
 venueName VARCHAR(145) NOT NULL,
@@ -44,6 +52,7 @@ performanceID INT,
 PRIMARY KEY (venueID)
 );
 
+-- Create Performances table, venueID and programID both FK
 CREATE TABLE IF NOT EXISTS Performances (
 performanceID int auto_increment,
 performanceName VARCHAR(145) NOT NULL,
@@ -52,34 +61,34 @@ performanceDate DATE NOT NULL,
 programID int,
 musicianID int,
 PRIMARY KEY (performanceID),
-FOREIGN KEY (venueID) REFERENCES Venues(venueID),
-FOREIGN KEY (programID) REFERENCES Programs(programID)
+FOREIGN KEY (venueID) REFERENCES Venues(venueID) ON DELETE CASCADE,
+FOREIGN KEY (programID) REFERENCES Programs(programID) ON DELETE SET NULL
 );
 
-
-
+-- Create intersection table for MusiciansPerformances, musicianID and performanceID both FK
 CREATE TABLE IF NOT EXISTS MusiciansPerformances(
 musiciansPerformancesID int auto_increment,
 musicianID int NOT NULL,
 performanceID int NOT NULL,
 PRIMARY KEY (musiciansPerformancesID),
-FOREIGN KEY (musicianID) REFERENCES Musicians(musicianID),
-FOREIGN KEY (performanceID) REFERENCES Performances(performanceID)
+FOREIGN KEY (musicianID) REFERENCES Musicians(musicianID) ON DELETE CASCADE,
+FOREIGN KEY (performanceID) REFERENCES Performances(performanceID) ON DELETE CASCADE
 );
 
 
-
-
-INSERT INTO Musicians (musicanName, musicianPhone, musicianEmail, instrument)
+-- Insert Musician Rows
+INSERT INTO Musicians (musicianName, musicianPhone, musicianEmail, instrument)
 VALUES ('Barry Allen', '(679) 834-9081', 'theflash@hotmail.com', 'oboe'),
  ('Tony Stark', '(875) 435-9821', 'ironman@yahoo.com', 'violin'),
  ('Bruce Banner', '(653) 982-7651', 'incrediblehulk@aol.com', 'tuba');
 
+-- Insert Performance Rows
  INSERT INTO Performances (performanceName, venueID, performanceDate, programID)
  VALUES ('Trans Siberia Orchestra', 1, '2023-12-13', 1),
  ('The Nut Cracker', 1, '2023-12-24', 7),
  ("Beethoven's Fifth Symphony", 2 , '2024-1-17', 3);
 
+-- Insert Venue Rows
  INSERT INTO Venues (venueName, cityState, capacity, performanceID)
  VALUES ('The Fimore Auditorium', 'Denver, CO', 637, 1),
  ('The Historic El Rey', 'Albuquerque, NM', 154, 2),
@@ -130,7 +139,7 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
       ("ACDC Revival", "Rock"),
       ("Modern Asian-American Composers", "Modern");
     
-    -- Intersection Table for SheetMusicOnPrograms
+-- Intersection Table for SheetMusicOnPrograms
 	INSERT INTO SheetMusicOnPrograms (programID, sheetMusicID)
 		VALUES
 			(1, 7),
@@ -149,8 +158,12 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
             (9, 5),
             (10, 9);
             
+  -- Insert intersection table data for musicians and performances          
 	INSERT INTO MusiciansPerformances (musicianID, performanceID)
 		VALUES
 			(1, 1),
             (1, 2),
             (1, 3);
+
+SET FOREIGN_KEY_CHECKS = 1;
+COMMIT;
