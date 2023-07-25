@@ -12,24 +12,16 @@ CREATE TABLE IF NOT EXISTS Programs (
     PRIMARY KEY (programID)
     );
 
--- Create SheetMusic Table, no FK
+-- Create SheetMusic Table, programID is FK
 CREATE TABLE IF NOT EXISTS SheetMusic (
 	sheetMusicID int auto_increment NOT NULL,
     sheetMusicName varchar(145) NOT NULL,
     composer varchar(75) NOT NULL,
     arranger varchar(75) DEFAULT NULL,
     genre varchar(45) NOT NULL,
-    PRIMARY KEY (sheetMusicID)
-    );
-
--- Create intersection table for Programs and SheetMusic, programID and sheetMusicID both FK
-CREATE TABLE IF NOT EXISTS SheetMusicOnPrograms (
-	musicProgramID int auto_increment,
-    programID int NOT NULL,
-    sheetMusicID int NOT NULL,
-    PRIMARY KEY (musicProgramID),
-    FOREIGN KEY (programID) REFERENCES Programs(programID) ON DELETE CASCADE,
-    FOREIGN KEY (sheetMusicID) REFERENCES SheetMusic(sheetMusicID) ON DELETE CASCADE
+    programID int DEFAULT NULL,
+    PRIMARY KEY (sheetMusicID),
+    FOREIGN KEY (programID) REFERENCES Programs(programID) ON DELETE SET NULL
     );
     
 -- Create Musicians table, no FK    
@@ -116,18 +108,18 @@ INSERT INTO Musicians (musicianName, musicianPhone, musicianEmail, instrument)
  ('Temple Square', 'Salt Lake City, UT', 1666);
     
 -- Insert data into SheetMusic table
-INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
+INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre, programID)
 	VALUES
-		("Spongebob Squarepants-Theme", "Blaise Smith", "Larry Moore", "Pop"),
-        ("O virtus Sapientiae", "Hildegard of Bingen", NULL, "Classical"),
-        ("Symphony No. 3 in G Minor, Op. 36", "Louise Farrenc", "Chantal Brooke", "Classical"),
-        ("Imperial March", "John Williams", NULL, "Pop"),
-        ("Boulevard of Broken Dreams", "Green Day", NULL, "Rock"),
-        ("Under the Sea", "Alan Menken", "Harry Schnel", "Pop"),
-        ("Fifth Symphony in C Minor", "Ludwig Van Beethoven", NULL, "Classical"),
-        ("The Nutcracker", "Pyotr Ilyich Tchaikovsky", NULL, "Holiday"),
-        ("All I Want for Christmas Is You", "Mariah Carey", NULL, "Holiday"),
-        ("Remember Me", "Germaine Franco", "Germaine Franco", "Pop");
+		("Spongebob Squarepants-Theme", "Blaise Smith", "Larry Moore", "Pop", 6),
+        ("O virtus Sapientiae", "Hildegard of Bingen", NULL, "Classical", 8),
+        ("Symphony No. 3 in G Minor, Op. 36", "Louise Farrenc", "Chantal Brooke", "Classical", 2),
+        ("Imperial March", "John Williams", NULL, "Pop", 4),
+        ("Boulevard of Broken Dreams", "Green Day", NULL, "Rock", 9),
+        ("Under the Sea", "Alan Menken", "Harry Schnel", "Pop", 4),
+        ("Fifth Symphony in C Minor", "Ludwig Van Beethoven", NULL, "Classical", 1),
+        ("The Nutcracker", "Pyotr Ilyich Tchaikovsky", NULL, "Holiday", 5),
+        ("All I Want for Christmas Is You", "Mariah Carey", NULL, "Holiday", 8),
+        ("Remember Me", "Germaine Franco", "Germaine Franco", "Pop", 3);
         
 -- Insert Program data
   INSERT INTO Programs (programName, theme)
@@ -144,53 +136,53 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
       ("Modern Asian-American Composers", "Modern");
     
 -- Intersection Table for SheetMusicOnPrograms
-	INSERT INTO SheetMusicOnPrograms (programID, sheetMusicID)
-		VALUES
-			(1, 7),
-            (2, 3),
-            (3, 2),
-            (3, 3),
-            (3, 9),
-            (3, 10),
-            (4, 6),
-            (4, 10),
-            (5, 8),
-            (6, 1),
-            (7, 8),
-            (7, 9),
-            (8, 2),
-            (9, 5),
-            (10, 9);
+-- 	INSERT INTO SheetMusicOnPrograms (programID, sheetMusicID)
+-- 		VALUES
+-- 			(1, 7),
+--             (2, 3),
+--             (3, 2),
+--             (3, 3),
+--             (3, 9),
+--             (3, 10),
+--             (4, 6),
+--             (4, 10),
+--             (5, 8),
+--             (6, 1),
+--             (7, 8),
+--             (7, 9),
+--             (8, 2),
+--             (9, 5),
+--             (10, 9);
             
   -- Insert intersection table data for musicians and performances          
-	INSERT INTO MusiciansPerformances (musicianID, performanceID)
-		VALUES
-			(1, 1),
-            (1, 2),
-            (1, 3),
-            (1, 4),
-            (2, 10),
-            (2, 8),
-            (2, 7),
-            (2, 6),
-            (4, 9),
-            (4, 10),
-            (4, 4),
-            (6, 2),
-            (6, 4),
-            (6, 7),
-            (7, 8),
-            (7, 10),
-            (7, 1),
-            (8, 9),
-            (8, 6),
-            (8, 3),
-            (9, 1),
-            (9, 9),
-            (9, 4),
-            (10, 10),
-            (10, 3),
-            (10, 6);
+	-- INSERT INTO MusiciansPerformances (musicianID, performanceID)
+-- 		VALUES
+-- 			(1, 1),
+--             (1, 2),
+--             (1, 3),
+--             (1, 4),
+--             (2, 10),
+--             (2, 8),
+--             (2, 7),
+--             (2, 6),
+--             (4, 9),
+--             (4, 10),
+--             (4, 4),
+--             (6, 2),
+--             (6, 4),
+--             (6, 7),
+--             (7, 8),
+--             (7, 10),
+--             (7, 1),
+--             (8, 9),
+--             (8, 6),
+--             (8, 3),
+--             (9, 1),
+--             (9, 9),
+--             (9, 4),
+--             (10, 10),
+--             (10, 3),
+--             (10, 6);
 
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;

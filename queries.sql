@@ -28,7 +28,7 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
     
 -- Add a row to MusiciansPerformances. : character denotes variables that will have input from html form
 INSERT INTO MusiciansPerformances (musicianID, performanceID)
-	VALUES (:musicianIDFromDropdownInput, :performanceIDFromDropdownInput);
+	VALUES (:musicianIDFromInput, :performanceIDFromDropdownInput);
 
 -- Add a row to SheetMusicOnPrograms. : character denotes variables that will have input from html form
 INSERT INTO SheetMusicOnPrograms (programID, sheetMusicID)
@@ -98,29 +98,30 @@ DELETE FROM MusiciansPerformances
 	WHERE musicianID = :musicianIDFromDropdown AND performanceID = :performanceIDFromDropdown;
     
 -- Select for Venues Table
-SELECT venueID, venueName, cityState, capacity
+SELECT venueID AS ID, venueName AS Name, cityState AS "City, State", capacity AS Capacity
 	FROM Venues;
     
 -- Select for Musicians Table
-SELECT *
+SELECT musicianID AS ID, musicianName AS Name, musicianPhone AS "Phone Number", musicianEmail AS Email, instrument AS Instrument
 	FROM Musicians;
     
 -- Select for Programs Table
-SELECT programID, programName, theme
+SELECT programID AS ID, programName AS Name, theme AS Theme
 	FROM Programs;
     
--- Select for SheetMusic Table
-SELECT sheetMusicID, sheetMusicName, composer, arranger, genre
-	FROM SheetMusic;
+-- Select for SheetMusic Table, programID FK gets displayed as programName
+SELECT sheetMusicID AS ID, sheetMusicName AS Name, composer AS Composer, arranger AS Arranger, genre AS Genre, Programs.programName AS "Program Name"
+	FROM SheetMusic
+    JOIN Programs ON SheetMusic.programID = Programs.programID;
     
 -- Select for Performances Table, programID FK gets shown as programName, venueID FK gets shown as venueName
-SELECT Performances.performanceID, Performances.performanceName, Performances.performanceDate, Programs.programName, Venues.venueName
+SELECT Performances.performanceID AS ID, Performances.performanceName as "Performance Name", Performances.performanceDate AS Date, Programs.programName AS "Program Name", Venues.venueName AS "Venue Name"
 	FROM Performances
     JOIN Programs ON Performances.programID = Programs.programID
     JOIN Venues ON Performances.venueID = Venues.venueID;
     
 -- Select for MusiciansPerformances
-SELECT musiciansPerformancesID, Musicians.musicianName, Performances.performanceName
+SELECT musiciansPerformancesID AS ID, Musicians.musicianName AS "Musician Name", Performances.performanceName AS "Performance Name"
 	FROM MusiciansPerformances
     JOIN Musicians ON MusiciansPerformances.musicianID = Musicians.musicianID
     JOIN Performances ON MusiciansPerformances.performanceID = Performances.performanceID;
