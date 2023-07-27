@@ -27,8 +27,20 @@ INSERT INTO SheetMusic (sheetMusicName, composer, arranger, genre)
 	VALUES (:nameInput, :composerInput, :arrangerInput, :genreInput);
     
 -- Add a row to MusiciansPerformances. : character denotes variables that will have input from html form
+-- INSERT INTO MusiciansPerformances (musicianID, performanceID)
+-- 	VALUES (:musicianIDFromInput, :performanceIDFromDropdownInput);
+
+-- Add a row to MusiciansPerformances when inserting new musician. : character denotes variables that will have input from html form
 INSERT INTO MusiciansPerformances (musicianID, performanceID)
-	VALUES (:musicianIDFromInput, :performanceIDFromDropdownInput);
+	VALUES (
+    (SELECT musicianID FROM Musicians WHERE :musicianEmailFromInputForm = Musicians.musicianEmail),
+    (SELECT performanceID FROM Performances WHERE :performanceNameFromInputForm = Performances.performanceName AND :performanceDateFromInputForm = Performances.performanceDate));
+    
+-- Add a row to MusiciansPerformances when updating musician. : character denotes variables that will have input from html form
+INSERT INTO MusiciansPerformances (musicianID, performanceID)
+	VALUES (
+    (SELECT musicianID FROM Musicians WHERE :musicianIDFromInputForm = Musicians.musicianID),
+    (SELECT performanceID FROM Performances WHERE :performanceNameFromInputForm = Performances.performanceName AND :performanceDateFromInputForm = Performances.performanceDate));
 
 -- Add a row to SheetMusicOnPrograms. : character denotes variables that will have input from html form
 INSERT INTO SheetMusicOnPrograms (programID, sheetMusicID)
@@ -130,13 +142,17 @@ SELECT musiciansPerformancesID AS ID, Musicians.musicianName AS "Musician Name",
 -- programName Select
 SELECT programName
 	FROM Programs;
+    
+-- performanceName, performanceDate Dropdown
+SELECT performanceName, performanceDate
+	FROM Performances;
 
 -- sheetMusicName Select
 SELECT sheetMusicName
 	FROM SheetMusic;
     
--- venueName Select
-SELECT venueName
+-- venueName, cityState Select
+SELECT venueName, cityState
 	FROM Venues;
     
 -- musicianName Select

@@ -7,8 +7,8 @@ SET AUTOCOMMIT = 0;
 -- Create Programs Table, no FK
 CREATE TABLE IF NOT EXISTS Programs (
 	programID int auto_increment,
-    programName varchar(145),
-    theme varchar(145),
+    programName varchar(145) UNIQUE NOT NULL,
+    theme varchar(145) NOT NULL,
     PRIMARY KEY (programID)
     );
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Musicians (
 musicianID int auto_increment,
 musicianName VARCHAR(145) NOT NULL,
 musicianPhone VARCHAR(14),
-musicianEmail VARCHAR(145),
+musicianEmail VARCHAR(145) UNIQUE NOT NULL,
 instrument VARCHAR(145) NOT NULL,
 PRIMARY KEY (musicianID)
 );
