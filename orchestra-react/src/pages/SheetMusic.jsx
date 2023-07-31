@@ -1,6 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function SheetMusic() {
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
+
+  // Helper function to toggle form visibility
+  const toggleForm = (formName) => {
+    if (formName === 'addForm') {
+      setIsAddFormVisible(!isAddFormVisible);
+    } else if (formName === 'updateForm') {
+      setIsUpdateFormVisible(!isUpdateFormVisible);
+    }
+  };
 
     // Sample sheet music data (replace this with data from the backend)
     const sheetMusicData = [
@@ -18,6 +29,8 @@ function SheetMusic() {
       { value: 'program3', label: 'Women in Music'}
       // Add other program options here
     ];
+
+    
 
   return (
     <div>
@@ -53,8 +66,11 @@ function SheetMusic() {
         ))}
       </table>
 
-      <h2>Add Sheet Music</h2>
-      <form>
+      <div className="form-button">
+        <button type="button" onClick={() => toggleForm('addForm')}>
+          {isAddFormVisible ? 'Hide Form' : 'Add Sheet Music'}
+        </button>
+        <form id="addForm" className={isAddFormVisible ? 'form-content' : 'hidden'}>
         <label htmlFor="sheetMusicName">Name</label>
         <input type="text" id="sheetMusicName" name="sheetMusicName" required /><br />
         <label htmlFor="composer">Composer</label>
@@ -64,7 +80,10 @@ function SheetMusic() {
         <label htmlFor="genre">Genre</label>
         <input type="text" id="genre" name="genre" required /><br />
         <input type="submit" value="Submit" />
-      </form>
+        </form>
+      </div>
+
+      
 
 
       <footer>

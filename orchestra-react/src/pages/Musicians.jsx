@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Musicians() {
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
+
+  // Helper function to toggle form visibility
+  const toggleForm = (formName) => {
+    if (formName === 'addForm') {
+      setIsAddFormVisible(!isAddFormVisible);
+    } else if (formName === 'updateForm') {
+      setIsUpdateFormVisible(!isUpdateFormVisible);
+    }
+  };
+  
 
   const handleDeleteClick = (musicianID) => {
     // Implement the delete functionality here, for example:
@@ -17,8 +29,12 @@ function Musicians() {
       { musicianID: 3, musicianName: 'Tony Stark', musicianPhone: '(875) 435-9821', musicianEmail: 'ironman@yahoo.com', instrument: 'violin' },
     ];
 
+   
+
   return (
     <div>
+
+      
       <h1>Musicians</h1>
       
 
@@ -40,14 +56,18 @@ function Musicians() {
             <td>{musician.musicianEmail}</td>
             <td>{musician.instrument}</td>
             <td>
-              <button type="button" onClick={() => handleDeleteClick(musician.musicianID)}>Delete</button>
+              <a href='#' onClick={() => handleDeleteClick(musician.musicianID)}>Delete</a>
             </td>
           </tr>
         ))}
       </table>
 
-      <h2>Add a Musician</h2>
-      <form>
+      <div className="form-button">
+        <button type="button" onClick={() => toggleForm('addForm')}>
+          {isAddFormVisible ? 'Hide Form' : 'Add Musician'}
+    
+        </button>
+        <form id="addForm" className={isAddFormVisible ? 'form-content' : 'hidden'}>
         <label htmlFor="musicianName">Name</label>
         <input type="text" id="musicianName" name="musicianName" required /><br />
         <label htmlFor="musicianPhone">Phone</label>
@@ -63,10 +83,15 @@ function Musicians() {
           <option value="3">Bethoven's 5th, 12/31/2023</option>
         </select>
         <input type="submit" value="Submit" />
-      </form>
+        </form>
+      </div>
 
-      <h2>Update a Musician</h2>
-      <form>
+      <div className="form-button">
+        <button type="button" onClick={() => toggleForm('updateForm')}>
+          {isUpdateFormVisible ? 'Hide Form' : 'Update Musician'}
+        </button>
+        <form id="updateForm" className={isUpdateFormVisible ? 'form-content' : 'hidden'}>
+          
         <label htmlFor="musicianID">ID</label>
         <input type="text" id="musicianID" name="musicianID" required /><br />
         <label htmlFor="musicianName">Name</label>
@@ -84,7 +109,11 @@ function Musicians() {
           <option value="3">Bethoven's 5th, 12/31/2023</option>
         </select>
         <input type="submit" value="Submit" />
-      </form>
+
+        </form>
+              
+      </div>
+      
 
     
       <footer>
