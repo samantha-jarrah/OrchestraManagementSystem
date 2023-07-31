@@ -1,11 +1,11 @@
-:root {
+  /*:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: black;
+  background-color: lightblue;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -43,7 +43,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: plum;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -57,7 +57,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: white;
     background-color: #ffffff;
   }
   a:hover {
@@ -67,3 +67,73 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+table {
+  margin: 0 auto; 
+  margin-bottom: 20px;
+  border: 2px solid black; 
+  border-collapse: collapse;
+}
+nav {
+  display: flex;
+  justify-content: center; 
+}
+
+nav a {
+  margin-right: 30px; 
+}
+
+
+h1 {
+  text-align: center; 
+  margin-top: 40px; 
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-content label,
+.form-content input,
+.form-content select {
+  margin-bottom: 10px; 
+}
+
+.form-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px; 
+}
+
+
+footer {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100px; 
+}
+
+footer p {
+  margin: 0; 
+}
+
+.icon {
+  width: 400px; 
+  height: 400px; 
+  margin-top: 20px; 
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}*/

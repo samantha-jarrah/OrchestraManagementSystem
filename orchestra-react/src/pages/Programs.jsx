@@ -1,6 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function Programs() {
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
+
+  // Helper function to toggle form visibility
+  const toggleForm = (formName) => {
+    if (formName === 'addForm') {
+      setIsAddFormVisible(!isAddFormVisible);
+    } else if (formName === 'updateForm') {
+      setIsUpdateFormVisible(!isUpdateFormVisible);
+    }
+  };
+
+ 
+
   return (
     <div>
       <h1>Programs</h1>
@@ -29,14 +43,19 @@ function Programs() {
         </tr>
       </table>
 
-      <h2>Add a Program</h2>
-      <form>
+      <div className="form-button">
+        <button type="button" onClick={() => toggleForm('addForm')}>
+          {isAddFormVisible ? 'Hide Form' : 'Add Program'}
+        </button>
+        <form id="addForm" className={isAddFormVisible ? 'form-content' : 'hidden'}>
         <label htmlFor="programName">Name</label>
         <input type="text" id="programName" name="programName" required /><br />
         <label htmlFor="theme">Theme</label>
         <input type="text" id="theme" name="theme" required /><br />
         <input type="submit" value="Submit" />
-      </form>
+        </form>
+      </div>
+
 
    
 

@@ -1,6 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 function Venues() {
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
+
+  // Helper function to toggle form visibility
+  const toggleForm = (formName) => {
+    if (formName === 'addForm') {
+      setIsAddFormVisible(!isAddFormVisible);
+    } else if (formName === 'updateForm') {
+      setIsUpdateFormVisible(!isUpdateFormVisible);
+    }
+  };
+
+  
+
   return (
     <div>
       <h1>Venues</h1>
@@ -8,10 +22,10 @@ function Venues() {
 
       <table border="1">
         <tr>
-          <th>venueID</th>
-          <th>venueName</th>
-          <th>cityState</th>
-          <th>capacity</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>City, State</th>
+          <th>Capacity</th>
         </tr>
         <tr>
           <td>1</td>
@@ -33,8 +47,11 @@ function Venues() {
         </tr>
       </table>
 
-      <h2>Add a Venue</h2>
-      <form>
+      <div className="form-button">
+        <button type="button" onClick={() => toggleForm('addForm')}>
+          {isAddFormVisible ? 'Hide Form' : 'Add Venue'}
+        </button>
+        <form id="addForm" className={isAddFormVisible ? 'form-content' : 'hidden'}>
         <label htmlFor="venueName">Name</label>
         <input type="text" id="venueName" name="venueName" required /><br />
         <label htmlFor="cityState">City, State</label>
@@ -42,7 +59,10 @@ function Venues() {
         <label htmlFor="capacity">Capacity</label>
         <input type="text" id="capacity" name="capacity" /><br />
         <input type="submit" value="Submit" />
-      </form>
+        </form>
+      </div>
+
+     
 
      
 

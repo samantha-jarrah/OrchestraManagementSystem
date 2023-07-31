@@ -1,6 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Performances() {
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
+
+  // Helper function to toggle form visibility
+  const toggleForm = (formName) => {
+    if (formName === 'addForm') {
+      setIsAddFormVisible(!isAddFormVisible);
+    } else if (formName === 'updateForm') {
+      setIsUpdateFormVisible(!isUpdateFormVisible);
+    }
+  };
+
+
+
   return (
     <div>
       <h1>Performances</h1>
@@ -37,8 +51,11 @@ function Performances() {
         </tr>
       </table>
 
-      <h2>Add a Performance</h2>
-      <form>
+      <div className="form-button">
+        <button type="button" onClick={() => toggleForm('addForm')}>
+          {isAddFormVisible ? 'Hide Form' : 'Add Performance'}
+        </button>
+        <form id="addForm" className={isAddFormVisible ? 'form-content' : 'hidden'}>
         <label htmlFor="performanceName">Name</label>
         <input type="text" id="performanceName" name="performanceName" required /><br />
         <label htmlFor="performanceDate">Date</label>
@@ -58,7 +75,10 @@ function Performances() {
           <option value="3">Arlene Schnitzer Hall</option>
         </select>
         <input type="submit" value="Submit" />
-      </form>
+        </form>
+      </div>
+
+      
 
 
       <footer>
