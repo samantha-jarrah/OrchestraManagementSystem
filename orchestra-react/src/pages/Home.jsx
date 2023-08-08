@@ -1,6 +1,7 @@
 import React from 'react';
 import iconImage from '../icons/noun-orchestra-4236365.png'
 
+// home page component
 function Home() {
   return (
     <div className='container'>

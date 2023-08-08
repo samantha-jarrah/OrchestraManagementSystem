@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Navigation() {
   return (
     <nav>
-      <ul>
+      <ul style={{ listStyleType: 'none', padding: 0 }}>
         <li>
           <Link to="/">Home</Link>
           <Link to="/musicians">Musicians</Link>

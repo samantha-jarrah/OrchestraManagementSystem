@@ -1,39 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function MusiciansPerformance() {
+  // Declare and initialize state variables
   const [musiciansPerformances, setMusiciansPerformances] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the backend and update the state
-    fetchMusiciansPerformances();
+    // Get data from the backend and update the state
+    axios.get('http://flip3.engr.oregonstate.edu:7897/MusiciansPerformances')
+      .then((response) => {
+        setMusiciansPerformances(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching musicianPerformance data:', error);
+      });
   }, []);
 
-  // Function to fetch musicians performances data from the backend
-  const fetchMusiciansPerformances = async () => {
-    try {
-      // Replace 'your-backend-url' with the actual URL to fetch data from the backend
-      const response = await fetch('your-backend-url/musiciansPerformances');
-      const data = await response.json();
-      setMusiciansPerformances(data);
-    } catch (error) {
-      console.error('Error fetching musicians performances data:', error);
-    }
-  };
+  
 
   return (
     <div>
       <h1>Musicians Performances</h1>
+
+      {/* musiciansPerformances table */}
       <table border="1">
-        <tr>
-          <th>ID</th>
-          <th>Musician Name</th>
-          <th>Performance Name</th>
-        </tr>
-        {musiciansPerformances.map((performance) => (
-          <tr key={performance.musicianPerformanceID}>
-            <td>{performance.musicianPerformanceID}</td>
-            <td>{performance.musicianName}</td>
-            <td>{performance.performance}</td>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Musician Name</th>
+            <th>Performance Name</th>
+          </tr>
+        </thead>
+
+        {/* map over the musiciansPerformances array to populate the table */}
+        {musiciansPerformances.map((musicianPerformance) => (
+          <tr key={musicianPerformance.musiciansPerformancesID}>
+            <td className="firstColumn">{musicianPerformance.musiciansPerformancesID}</td>
+            <td>{musicianPerformance.musicianName}</td>
+            <td>{musicianPerformance.performanceName}</td>
           </tr>
         ))}
       </table>
