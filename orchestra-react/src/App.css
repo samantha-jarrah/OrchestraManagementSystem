@@ -69,12 +69,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: plum;
+  background-color: #EFB5F6;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  /* border-color: whitesmoke; */
+  border: 3px solid whitesmoke;
 }
 button:focus,
 button:focus-visible {
@@ -83,14 +84,26 @@ button:focus-visible {
 
 
 
- 
-
-
 table {
   margin: 0 auto; /* This centers the table horizontally */
   margin-bottom: 20px;
   border: 2px solid black; /* Add border to the table */
   border-collapse: collapse;
+  background-color: whitesmoke;
+}
+
+tr:hover {background-color: #F5EDCE;}
+
+th, td {
+  padding: 10px;
+}
+
+thead {
+  background-color: #F5EDCE;
+}
+
+.firstColumn {
+  background-color: #F5EDCE;
 }
 nav {
   display: flex;

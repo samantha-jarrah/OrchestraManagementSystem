@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Musicians from './pages/Musicians';
+import Musicians from './pages/musicians';
 import Performances from './pages/Performances';
 import Venues from './pages/Venues';
 import Programs from './pages/Programs';
@@ -17,7 +17,7 @@ function App() {
       <Navigation />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/musicians" element={<Musicians />} />
+          <Route path="/musicians" element={<Musicians/>} />
           <Route path="/performances" element={<Performances />} />
           <Route path="/venues" element={<Venues />} />
           <Route path="/programs" element={<Programs />} />
