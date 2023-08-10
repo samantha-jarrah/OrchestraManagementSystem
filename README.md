@@ -2,7 +2,7 @@
 
 ## Overview
 The Orchestra Management System (OMS) is a full-stack web application used to manage the various musicians, performances, venues, programs, and sheet music of an imagainery orchestra that travels the United States. The relationships between these entitites is described below in the schema diagram. 
-![OMS schema](/images/OMSschema.png)
+![OMS schema](OMSschema.png)
 ---
 ## Tech Stack
 - **React**
